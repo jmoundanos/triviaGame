@@ -1,0 +1,34 @@
+body{
+    background: url("../images/map2.jpg") no-repeat fixed center;
+    
+    }
+.container-fluid{
+    height: 100vh;
+    font-family: 'Patua One', cursive;
+}
+.row{
+    height: 20%;
+
+}
+header{
+    background-color: blue;
+    color: white;
+    height: 100%;
+    font-size: 3rem;
+}
+#timer{
+    width: 50%;
+  margin: 0 auto;
+}
+#question{
+    background-color: white;
+    opacity: 0.5;
+    font-weight: bold;
+  
+}
+#answer{
+    background-color: white;
+}
+#results{
+    background-color: white;
+}
