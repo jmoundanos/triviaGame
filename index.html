@@ -11,38 +11,40 @@
   <body>
       <div class="container-fluid">
         <div class="row">
-            <div class="col-1"></div>
-            <div class="col-10" id="title">
+            <div class="col-2"></div>
+            <div class="col-8" id="title">
                 <header class="text-center">World Geography Trivia Game</header>
             </div>
+            <div class="col-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10" id="question">
+                <div class="col-4" id="timer">timer</div>
+                <p>question</p>
+            </div>
             <div class="col-1"></div>
         </div>
         <div class="row">
-            <div class="col-2"></div>
-            <div class="col-8" id="question">
-                <p>question</p>
-                    <div class="col-4" id="timer">timer</div>
-            </div>
-            <div class="col-2"></div>
-        </div>
-        <div class="row">
-            <div class="col-3"></div>
-            <div class="col-6" id="answer">
+            <div class="col-4"></div>
+            <div class="col-4" id="answer">
                 <p>answer</p>
             </div>
-            <div class="col-3"></div>
+            <div class="col-4"></div>
         </div>
         <div class="row">
             <div class="col-4"></div>
             <div class="col-4" id="results">
-                <p>results</p>
+                <p class="mb-0" id="correct">Correct: </p>
+                <p class="mb-0" id="incorrect">Incorrect: </p>
+                <p id="message"></p>
             </div>
             <div class="col-4"></div>
         </div>
         <div class="row">
             <div class="col-3"></div>
             <div class="col-6">
-                <button type="button" class="btn btn-primary btn-lg">Large button</button> 
+                <button type="button" class="btn btn-secondary btn-lg btn-block">Start Game</button> 
             </div>
             <div class="col-3"></div>
         </div>
