@@ -112,23 +112,49 @@ function startGame(){
         $(this).hide();
         //countdownTimer(20);
         showQuestion();
-        //$("#choice").on("click", );
     })
 }
 var questionCounter = 0;
-function showQuestion(){
-
-    //for(var i = 0; i < gameQuestions.length; i++){
-        $("#question").text(gameQuestions[questionCounter].question);
-
+function showQuestion(){     
+        if(questionCounter < gameQuestions.length){
+            $("#question").text(gameQuestions[questionCounter].question);
+        }else{
+            $("#message").text("Game Over"); 
+            
+         }
         for(var j = 0; j < gameQuestions[questionCounter].answers.length; j++){
             console.log(gameQuestions[questionCounter].answers[j]);
-
+            $("#answer").append('<p class="choice">' + gameQuestions[questionCounter].answers[j] + '</p>');
         }
-       //for(var j = 0; j <= 3; j++){
-        //   $("#answer").append('<p class="choice">' + gameQuestions[i].answers[j] + '</p>');
-    //}
+        var choices = document.getElementsByClassName('choice');
+        for(var i = 0; i < choices.length; i++){
+            choices[i].addEventListener("click", checkAnswer);
+        }
     }
+function checkAnswer(e){
+    var element = e.target || e.srcElement;
+    if(element.innerHTML === gameQuestions[questionCounter].correctAnswer){
+        $("#message").text("Correct!");
+        correct++;
+        $("#correct").text("Correct: " + correct);
+    }else{
+       $("#message").text("Incorrect. The correct answer is " + gameQuestions[questionCounter].correctAnswer);
+       incorrect++;
+       $("#incorrect").text("Incorrect: " + incorrect);
+    }
+    nextQuestion();
+}
+function nextQuestion(){
+    $("#question").empty();
+    $("#answer").empty();
+    questionCounter++;
+    showQuestion();
+}
+function playAgain(){
+    $("#hide").hide();
+    startGame();
+}
+
 
 startGame();
 });
