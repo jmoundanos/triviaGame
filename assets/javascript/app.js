@@ -1,3 +1,4 @@
+$(document).ready(function(){
 var gameQuestions = [
     {
         question: "Which country owns Antarctica?",
@@ -99,4 +100,35 @@ var gameQuestions = [
         ],
         correctAnswer: "Nepal"
     }
-]
+];
+var correct = 0;
+var incorrect = 0;
+
+
+$("#hide").hide();
+function startGame(){
+    $("#start").click(function(){
+        $("#hide").show();
+        $(this).hide();
+        //countdownTimer(20);
+        showQuestion();
+        //$("#choice").on("click", );
+    })
+}
+var questionCounter = 0;
+function showQuestion(){
+
+    //for(var i = 0; i < gameQuestions.length; i++){
+        $("#question").text(gameQuestions[questionCounter].question);
+
+        for(var j = 0; j < gameQuestions[questionCounter].answers.length; j++){
+            console.log(gameQuestions[questionCounter].answers[j]);
+
+        }
+       //for(var j = 0; j <= 3; j++){
+        //   $("#answer").append('<p class="choice">' + gameQuestions[i].answers[j] + '</p>');
+    //}
+    }
+
+startGame();
+});
