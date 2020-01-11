@@ -53,7 +53,7 @@ var gameQuestions = [
     {
         question: "Which city is located in two continents?",
         answers: [
-            "Instanbul",
+            "Istanbul",
             "Paris",
             "Tokyo",
             "New York City"
@@ -103,24 +103,32 @@ var gameQuestions = [
 ];
 var correct = 0;
 var incorrect = 0;
-
+var questionCounter = 0;
+var num = 15;
+var holdInterval;
 
 $("#hide").hide();
 function startGame(){
     $("#start").click(function(){
         $("#hide").show();
         $(this).hide();
-        //countdownTimer(20);
         showQuestion();
     })
 }
-var questionCounter = 0;
 function showQuestion(){     
         if(questionCounter < gameQuestions.length){
             $("#question").text(gameQuestions[questionCounter].question);
         }else{
             $("#message").text("Game Over"); 
-            
+            if(correct > gameQuestions.length/2){
+                $("#message").text("Game Over. Congratulations! You won the game!");
+                $("#question").text("");
+                setTimeout(playAgain, 7000);
+            }else{
+                $("#message").text("Game Over. Better luck next time!");
+                $("#question").text("");
+                setTimeout(playAgain, 7000);
+            }
          }
         for(var j = 0; j < gameQuestions[questionCounter].answers.length; j++){
             console.log(gameQuestions[questionCounter].answers[j]);
@@ -130,6 +138,8 @@ function showQuestion(){
         for(var i = 0; i < choices.length; i++){
             choices[i].addEventListener("click", checkAnswer);
         }
+        $("#answer").prepend('<p id="timer">' +num+ " seconds"+"</p>");
+        setTimer();
     }
 function checkAnswer(e){
     var element = e.target || e.srcElement;
@@ -137,24 +147,57 @@ function checkAnswer(e){
         $("#message").text("Correct!");
         correct++;
         $("#correct").text("Correct: " + correct);
-    }else{
-       $("#message").text("Incorrect. The correct answer is " + gameQuestions[questionCounter].correctAnswer);
+        nextQuestion();
+    }else{ 
+        $("#message").text("Incorrect. The correct answer is " + gameQuestions[questionCounter].correctAnswer);
        incorrect++;
-       $("#incorrect").text("Incorrect: " + incorrect);
+        $("#incorrect").text("Incorrect: " + incorrect);
+        nextQuestion();
     }
-    nextQuestion();
-}
+    }
+    
 function nextQuestion(){
-    $("#question").empty();
     $("#answer").empty();
+    stopTimer();
+    setTimer();
     questionCounter++;
     showQuestion();
 }
-function playAgain(){
-    $("#hide").hide();
-    startGame();
+function setTimer(){
+    clearInterval(holdInterval);
+    holdInterval = setInterval(runTimer, 1000);
+    num = 15;
 }
-
-
+function runTimer(){
+    num--;
+    $("#timer").text(num+ " seconds");
+    if(num === 0){
+        clearInterval(holdInterval);
+        $("#message").text("Sorry, you have run out of time. The correct answer is " + gameQuestions[questionCounter].correctAnswer);
+        nextQuestion();
+        incorrect++;
+        $("#incorrect").text("Incorrect: " + incorrect);
+       
+    }
+}
+function stopTimer(){
+    clearInterval(holdInterval);
+}
+function playAgain(){
+    questionCounter = 0;
+    correct = 0;
+    incorrect = 0;
+    $("#hide").hide();
+    $("#start").show();
+    $("#start").click(function(){
+        $(this).hide();
+        $("#correct").text("Correct: ");
+        $("#incorrect").text("Incorrect: "); 
+        $("#answer").empty();
+        $("#question").empty();
+        $("#message").empty();
+        showQuestion();
+})
+}
 startGame();
 });
